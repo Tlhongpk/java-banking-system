@@ -20,17 +20,17 @@ public class Main {
 
         );
 
-        System.out.println("\nSecond account holder: " + secondAccount.getAccountHolderName());
-        System.out.println("Second account balance: " + secondAccount.getBalance());
-
 
         System.out.println("Account holder: " + account.getAccountHolderName());
         System.out.println("Balance: R" + account.getBalance());
 
-        account.deposit(new BigDecimal("500.00"));
+        System.out.println("\nSecond account holder: " + secondAccount.getAccountHolderName());
+        System.out.println("Second account balance: " + secondAccount.getBalance());
+
+        account.deposit(null);
         System.out.println("Balance after deposit: R" + account.getBalance());
 
-        account.withdraw(new BigDecimal("200.00"));
+        account.withdraw(null);
         System.out.println("Balance after withdrawal: R" + account.getBalance());
 
         System.out.println("\n--- Testing validation ---");
@@ -49,7 +49,7 @@ public class Main {
         System.out.println("Mary's balance: R" + secondAccount.getBalance());
 
 
-        System.out.println("\n--- Testing validation ---");
+        System.out.println("\n--- Testing invalidation ---");
 
         try {
                 BankAccount invalidAccount = new BankAccount(
@@ -60,6 +60,41 @@ public class Main {
         }
         catch (IllegalArgumentException e) {
                 System.out.println("Account creation failed: " + e.getMessage());
+        }
+
+        System.out.println("\n--- Testing account creation ---");
+
+        try {
+            BankAccount invalidAccount = new BankAccount(
+                    "",
+                    "Alex",
+                    new BigDecimal("500.00")
+            );
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println("Account creation failed: " + e.getMessage());
+        }
+
+        try {
+            BankAccount invalidAccount = new BankAccount(
+                    "10001",
+                    "",
+                    new BigDecimal("500.00")
+            );
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println("Account creation failed: " + e.getMessage());
+        }
+
+        try {
+            BankAccount invalidAccount = new BankAccount(
+                    "10005",
+                    "Alex",
+                    new BigDecimal("-500.00")
+            );
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println("Account creation failed: " + e.getMessage());
         }
     }
 }
