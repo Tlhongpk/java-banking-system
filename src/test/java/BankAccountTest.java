@@ -3,10 +3,9 @@ package com.tlhongpk.banking;
 
 import com.tlhongpk.banking.model.BankAccount;
 import org.junit.jupiter.api.Test;
-
 import java.math.BigDecimal;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BankAccountTest {
 
@@ -125,4 +124,39 @@ class BankAccountTest {
         );
     }
 
+    @Test
+    void emptyAccountNumberShouldThrowException() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new BankAccount(
+                        "",
+                        "John",
+                        new BigDecimal("1000.00")
+                )
+        );
+    }
+
+    @Test
+    void emptyAccountHolderNameShouldThrowException() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new BankAccount(
+                        "10009",
+                        "",
+                        new BigDecimal("1000.00")
+                )
+        );
+    }
+
+    @Test
+    void negativeInitialBalanceShouldThrowException() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new BankAccount(
+                        "10010",
+                        "Thabo",
+                        new BigDecimal("-100.00")
+                )
+        );
+    }
 }
