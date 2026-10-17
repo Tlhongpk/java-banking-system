@@ -91,4 +91,38 @@ class BankAccountTest {
                 new BigDecimal("1000.00").compareTo(account.getBalance())
         );
     }
+
+
+    @Test
+    void zeroDepositShouldNotChangeBalance() {
+        BankAccount account = new BankAccount(
+                "10006",
+                "Thabo",
+                new BigDecimal("1000.00")
+        );
+
+        account.deposit(BigDecimal.ZERO);
+
+        assertEquals(
+                0,
+                new BigDecimal("1000.00").compareTo(account.getBalance())
+        );
+    }
+
+    @Test
+    void zeroWithdrawalShouldNotChangeBalance() {
+        BankAccount account = new BankAccount(
+                "10007",
+                "Lerato",
+                new BigDecimal("1000.00")
+        );
+
+        account.withdraw(BigDecimal.ZERO);
+
+        assertEquals(
+                0,
+                new BigDecimal("1000.00").compareTo(account.getBalance())
+        );
+    }
+
 }
